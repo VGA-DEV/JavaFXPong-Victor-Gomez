@@ -1,7 +1,6 @@
 package com.example.di_3;
 
 import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -19,7 +18,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.Random;
 
 public class HelloApplication extends Application {
     Rectangle pala1 = new Rectangle(15, 80);
@@ -28,7 +26,8 @@ public class HelloApplication extends Application {
 
     private boolean abajoDer, abajoIzq, arribaDer, arribaIzq;
 
-    private int move = 5;
+    private int moviemientoVelocidadY = -5;
+    private int moviemientoVelocidadX = -5;
 
 
     @Override
@@ -56,32 +55,32 @@ public class HelloApplication extends Application {
                         pelota.setLayoutY(t1.floatValue() / 2.f - pelota.getRadius() / 2);
                     });
 
-                }}, 320, 240) {{
+                }}, 1000, 700) {{
             setOnKeyPressed(keyEvent -> {
-                if (keyEvent.getCode() == KeyCode.W && pala1.getLayoutY() > 10) {
+                if (keyEvent.getCode() == KeyCode.W) {
                     arribaIzq = true;
                 }
-                if (keyEvent.getCode() == KeyCode.S && pala1.getHeight() < getHeight() - 90) {
+                if (keyEvent.getCode() == KeyCode.S) {
                     abajoIzq = true;
                 }
-                if (keyEvent.getCode() == KeyCode.UP && pala2.getLayoutY() > 10) {
+                if (keyEvent.getCode() == KeyCode.UP) {
                     arribaDer = true;
                 }
-                if (keyEvent.getCode() == KeyCode.DOWN && pala2.getLayoutY() < getHeight() - 90) {
+                if (keyEvent.getCode() == KeyCode.DOWN) {
                     abajoDer = true;
                 }
             });
             setOnKeyReleased(keyEvent -> {
-                if (keyEvent.getCode() == KeyCode.W && pala1.getLayoutY() > 10) {
+                if (keyEvent.getCode() == KeyCode.W) {
                     arribaIzq = false;
                 }
-                if (keyEvent.getCode() == KeyCode.S && pala1.getHeight() < getHeight() - 90) {
+                if (keyEvent.getCode() == KeyCode.S ) {
                     abajoIzq = false;
                 }
-                if (keyEvent.getCode() == KeyCode.UP && pala2.getLayoutY() > 10) {
+                if (keyEvent.getCode() == KeyCode.UP) {
                     arribaDer = false;
                 }
-                if (keyEvent.getCode() == KeyCode.DOWN && pala2.getLayoutY() < getHeight() - 90) {
+                if (keyEvent.getCode() == KeyCode.DOWN ) {
                     abajoDer = false;
                 }
             });
@@ -90,11 +89,12 @@ public class HelloApplication extends Application {
                 pala1.setY(abajoIzq ? pala1.getY() : pala1.getY() - 10);
                 pala2.setY(arribaDer ? pala2.getY() : pala2.getY() + 10);
                 pala2.setY(abajoDer ? pala2.getY() : pala2.getY() - 10);
-                if (pelota.getLayoutX() + move > getHeight() || pelota.getCenterX() - move < 0) {
-                    move*=-1;
+                System.out.println(pelota.getLayoutY());
+                if (pelota.getLayoutY() + moviemientoVelocidadY == 0 || pelota.getLayoutY() + moviemientoVelocidadY == getHeight()-10) {
+                    moviemientoVelocidadY*=-1;
                 }
-                pelota.setLayoutX(pelota.getLayoutY() + move);
-                pelota.setLayoutY(pelota.getLayoutX() + 5);
+                //pelota.setLayoutX(pelota.getLayoutX() + moviemientoVelocidadX);*/
+                pelota.setLayoutY(pelota.getLayoutY() + moviemientoVelocidadY);
             }
             ));
             timeline.setCycleCount(Animation.INDEFINITE);
