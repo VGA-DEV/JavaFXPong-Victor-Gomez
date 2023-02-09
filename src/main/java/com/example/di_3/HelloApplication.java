@@ -134,8 +134,6 @@ public class HelloApplication extends Application {
                 }
                 pelota.setLayoutX(pelota.getLayoutX() + moviemientoVelocidadX);
                 pelota.setLayoutY(pelota.getLayoutY() + moviemientoVelocidadY);
-                System.out.println(pala1.getBoundsInParent().getMinY());
-                System.out.println();
             }
             ));
             timeline.setCycleCount(Animation.INDEFINITE);
